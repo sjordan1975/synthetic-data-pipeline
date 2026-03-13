@@ -1,11 +1,12 @@
-# Synthetic Data Pipeline
+# Resume Coach: Synthetic Data Pipeline
 
-Production-style pipeline for generating synthetic job/resume datasets, validating quality, analyzing failure modes, and exposing review logic through an API.
+Resume Coach is a production-style pipeline for generating synthetic job/resume datasets, validating quality, analyzing failure modes, correcting issues, judging pairings, and exposing review logic through an API.
 
 ## Overview
 
-This project simulates a client workflow where synthetic data quality must be measurable, explainable, and operationally reliable.  
-It combines data generation, validation, analysis, optional correction, and API benchmarking into one reproducible pipeline.
+This project simulates a resume and job pairing review workflow where synthetic data quality must be measurable, explainable, and operationally reliable.  
+
+It combines data generation, validation, analysis, optional correction, judge evaluation, and API benchmarking into one reproducible pipeline.
 
 ## Business Objective
 
