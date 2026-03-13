@@ -21,34 +21,6 @@ It combines data generation, validation, analysis, optional correction, judge ev
 - Provides decision-ready evidence (latency, failure rates, template quality) for stakeholders.
 - Creates a repeatable baseline for improving template quality and correction performance over time.
 
-## Solution Architecture
-
-Pipeline stages:
-1. Generation (`generator.py`)
-2. Validation (`validator.py`)
-3. Analysis (`analyzer.py`)
-4. Correction (`corrector.py`, optional)
-5. API Exposure (`api.py`)
-6. Runtime Evidence (`benchmark_api.py`, `summarize_pipeline.py`, `metrics_report.py`, `visualizer.py`)
-
-## System Topology
-
-Modular monolith with a CLI-driven batch pipeline and a FastAPI service surface.  
-Offline stages generate and evaluate artifacts; the API serves real-time resume-job review requests.
-
-```text
-[CLI / Scheduled Run] -> [Generation + Validation + Analysis + Correction] -> [Artifacts]
-                                       |
-                                       -> [FastAPI Service] -> [/review-resume]
-```
-
-## Key Components
-
-- **`generator.py`** - Synthesizes jobs, resumes, and pair datasets for controlled evaluation.
-- **`validator.py` + `analyzer.py`** - Enforces schema/quality checks and produces failure-mode labels.
-- **`corrector.py`** - Applies optional repair passes to invalid or low-quality records.
-- **`api.py` + benchmarking scripts** - Exposes review endpoint and captures latency/runtime evidence.
-
 ## Key Decisions and Tradeoffs
 
 | Decision | Chosen approach | Alternative considered | Why |
@@ -56,13 +28,6 @@ Offline stages generate and evaluate artifacts; the API serves real-time resume-
 | Runtime shape | Modular monolith + stage scripts | Split microservices | Faster iteration and lower ops complexity for current scope |
 | Quality control | Rules-first with optional judge mode | Judge-only evaluation | Deterministic baseline with optional deeper analysis |
 | Artifact strategy | File-based JSON/JSONL + reports | Immediate DB-backed pipeline | Transparent, reproducible outputs and simpler submission packaging |
-
-## Tech Stack
-
-- **Language/runtime:** Python 3.13
-- **API/frameworks:** FastAPI, Pydantic, Instructor
-- **Analytics/visualization:** pandas, matplotlib, seaborn
-- **Validation/testing:** pytest, custom metrics and benchmarks
 
 ## Results Snapshot (Latest Evidence Run)
 
@@ -182,6 +147,41 @@ python visualizer.py
 **Next iteration**
 - Tune weaker resume templates (starting with entry-level variants).
 - Expand benchmark payload diversity beyond the current control fixture.
+
+## Solution Architecture
+
+Pipeline stages:
+1. Generation (`generator.py`)
+2. Validation (`validator.py`)
+3. Analysis (`analyzer.py`)
+4. Correction (`corrector.py`, optional)
+5. API Exposure (`api.py`)
+6. Runtime Evidence (`benchmark_api.py`, `summarize_pipeline.py`, `metrics_report.py`, `visualizer.py`)
+
+## System Topology
+
+Modular monolith with a CLI-driven batch pipeline and a FastAPI service surface.  
+Offline stages generate and evaluate artifacts; the API serves real-time resume-job review requests.
+
+```text
+[CLI / Scheduled Run] -> [Generation + Validation + Analysis + Correction] -> [Artifacts]
+                                       |
+                                       -> [FastAPI Service] -> [/review-resume]
+```
+
+## Key Components
+
+- **`generator.py`** - Synthesizes jobs, resumes, and pair datasets for controlled evaluation.
+- **`validator.py` + `analyzer.py`** - Enforces schema/quality checks and produces failure-mode labels.
+- **`corrector.py`** - Applies optional repair passes to invalid or low-quality records.
+- **`api.py` + benchmarking scripts** - Exposes review endpoint and captures latency/runtime evidence.
+
+## Tech Stack
+
+- **Language/runtime:** Python 3.13
+- **API/frameworks:** FastAPI, Pydantic, Instructor
+- **Analytics/visualization:** pandas, matplotlib, seaborn
+- **Validation/testing:** pytest, custom metrics and benchmarks
 
 ## Reference Docs
 
