@@ -31,6 +31,39 @@ Pipeline stages:
 5. API Exposure (`api.py`)
 6. Runtime Evidence (`benchmark_api.py`, `summarize_pipeline.py`, `metrics_report.py`, `visualizer.py`)
 
+## System Topology
+
+Modular monolith with a CLI-driven batch pipeline and a FastAPI service surface.  
+Offline stages generate and evaluate artifacts; the API serves real-time resume-job review requests.
+
+```text
+[CLI / Scheduled Run] -> [Generation + Validation + Analysis + Correction] -> [Artifacts]
+                                       |
+                                       -> [FastAPI Service] -> [/review-resume]
+```
+
+## Key Components
+
+- **`generator.py`** - Synthesizes jobs, resumes, and pair datasets for controlled evaluation.
+- **`validator.py` + `analyzer.py`** - Enforces schema/quality checks and produces failure-mode labels.
+- **`corrector.py`** - Applies optional repair passes to invalid or low-quality records.
+- **`api.py` + benchmarking scripts** - Exposes review endpoint and captures latency/runtime evidence.
+
+## Key Decisions and Tradeoffs
+
+| Decision | Chosen approach | Alternative considered | Why |
+|---|---|---|---|
+| Runtime shape | Modular monolith + stage scripts | Split microservices | Faster iteration and lower ops complexity for current scope |
+| Quality control | Rules-first with optional judge mode | Judge-only evaluation | Deterministic baseline with optional deeper analysis |
+| Artifact strategy | File-based JSON/JSONL + reports | Immediate DB-backed pipeline | Transparent, reproducible outputs and simpler submission packaging |
+
+## Tech Stack (Optional)
+
+- **Language/runtime:** Python 3.13
+- **API/frameworks:** FastAPI, Pydantic, Instructor
+- **Analytics/visualization:** pandas, matplotlib, seaborn
+- **Validation/testing:** pytest, custom metrics and benchmarks
+
 ## Results Snapshot (Latest Evidence Run)
 
 Based on artifacts generated in the latest completed run:
@@ -38,13 +71,13 @@ Based on artifacts generated in the latest completed run:
 - Validation success rate: 100%
 - Rules-only API p95 latency: 0.016s (target: 2.0s, PASS)
 - With-judge API p95 latency: 8.255s (target: 10.0s, PASS)
-- Correction success rate: 0.0% (target: 50.0%, FAIL)
+- Correction success rate: 0.0% (target: 50.0%, not measured in this run due to no material repair cases)
 
 | Metric | Value | Target | Status |
 |---|---:|---:|---|
 | Rules-only p95 latency | 0.016s | 2.0s | PASS |
 | With-judge p95 latency | 8.255s | 10.0s | PASS |
-| Correction success rate | 0.0% | 50.0% | FAIL |
+| Correction success rate | 0.0% | 50.0% | NA (no material repair cases) |
 
 ## Key Findings
 
