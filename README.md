@@ -57,7 +57,7 @@ Offline stages generate and evaluate artifacts; the API serves real-time resume-
 | Quality control | Rules-first with optional judge mode | Judge-only evaluation | Deterministic baseline with optional deeper analysis |
 | Artifact strategy | File-based JSON/JSONL + reports | Immediate DB-backed pipeline | Transparent, reproducible outputs and simpler submission packaging |
 
-## Tech Stack (Optional)
+## Tech Stack
 
 - **Language/runtime:** Python 3.13
 - **API/frameworks:** FastAPI, Pydantic, Instructor
