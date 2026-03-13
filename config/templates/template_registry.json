@@ -1,0 +1,86 @@
+{
+  "job_formal_v1": {
+    "version": "v1",
+    "path": "job_formal_v1.md",
+    "kind": "job",
+    "style": "formal_corporate",
+    "active": true
+  },
+  "job_startup_v1": {
+    "version": "v1",
+    "path": "job_startup_v1.md",
+    "kind": "job",
+    "style": "casual_startup",
+    "active": true
+  },
+  "job_technical_v1": {
+    "version": "v1",
+    "path": "job_technical_v1.md",
+    "kind": "job",
+    "style": "technical_detail_heavy",
+    "active": true
+  },
+  "job_executive_v1": {
+    "version": "v1",
+    "path": "job_executive_v1.md",
+    "kind": "job",
+    "style": "executive_leadership",
+    "active": true
+  },
+  "job_niche_v1": {
+    "version": "v1",
+    "path": "job_niche_v1.md",
+    "kind": "job",
+    "style": "niche_specialized",
+    "active": true
+  },
+  "job_requirements_v1": {
+    "version": "v1",
+    "path": "job_requirements_v1.md",
+    "kind": "job_requirements",
+    "style": "requirements",
+    "active": true
+  },
+  "resume_achievement_v1": {
+    "version": "v1",
+    "path": "resume_achievement_v1.md",
+    "kind": "resume",
+    "style": "achievement_focused",
+    "active": true
+  },
+  "resume_career_changer_v1": {
+    "version": "v1",
+    "path": "resume_career_changer_v1.md",
+    "kind": "resume",
+    "style": "career_changer",
+    "active": true
+  },
+  "resume_entry_level_v1": {
+    "version": "v1",
+    "path": "resume_entry_level_v1.md",
+    "kind": "resume",
+    "style": "entry_level_new_grad",
+    "active": true
+  },
+  "resume_leadership_v1": {
+    "version": "v1",
+    "path": "resume_leadership_v1.md",
+    "kind": "resume",
+    "style": "senior_leadership",
+    "active": true
+  },
+  "resume_technical_specialist_v1": {
+    "version": "v1",
+    "path": "resume_technical_specialist_v1.md",
+    "kind": "resume",
+    "style": "technical_specialist",
+    "active": true
+  },
+  "resume_professional_v1": {
+    "version": "v1",
+    "path": "resume_professional_v1.md",
+    "kind": "resume",
+    "style": "professional_baseline",
+    "active": false
+  }
+}

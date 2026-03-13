@@ -1,0 +1,112 @@
+{
+  "resume": {
+    "contact_info": {
+      "name": "Dana Ortiz",
+      "email": "dana.clean@example.com",
+      "phone_region": "US",
+      "phone": "+12025550181",
+      "location": "San Diego, CA"
+    },
+    "education": [
+      {
+        "institution": "Pacific State University",
+        "degree": "Bachelor of Science",
+        "field_of_study": "Computer Science",
+        "graduation_year": 2020,
+        "gpa": 3.7
+      }
+    ],
+    "experience": [
+      {
+        "company": "CoreWare",
+        "position": "Software Engineer",
+        "start_date": "2020-06-01",
+        "end_date": "2022-12-31",
+        "description": "Built API endpoints, improved SQL queries, and maintained service reliability for internal and external applications.",
+        "achievements": [
+          "Reduced average API latency by 22% through query and caching improvements.",
+          "Implemented automated integration tests that lowered regressions in release cycles."
+        ]
+      },
+      {
+        "company": "Nimbus Apps",
+        "position": "Backend Engineer",
+        "start_date": "2023-01-01",
+        "end_date": null,
+        "description": "Design and maintain backend services with clear documentation and reliable deployment workflows.",
+        "achievements": [
+          "Delivered a new reporting API consumed by three product teams.",
+          "Improved deployment success rate by adding pre-deploy validation checks."
+        ]
+      }
+    ],
+    "skills": [
+      {
+        "name": "Python",
+        "category": "Programming",
+        "proficiency": "advanced"
+      },
+      {
+        "name": "SQL",
+        "category": "Data",
+        "proficiency": "advanced"
+      },
+      {
+        "name": "API Development",
+        "category": "Backend",
+        "proficiency": "advanced"
+      },
+      {
+        "name": "Docker",
+        "category": "DevOps",
+        "proficiency": "intermediate"
+      },
+      {
+        "name": "AWS",
+        "category": "Cloud",
+        "proficiency": "intermediate"
+      }
+    ],
+    "metadata": {
+      "trace_id": "resume-ctrl-clean-good-fit",
+      "generated_at": "2026-03-01T00:00:00Z",
+      "prompt_template": "resume_professional_v1",
+      "fit_level": "good",
+      "writing_style": "professional",
+      "used_fallback": false
+    },
+    "summary": "Backend engineer with consistent API delivery, clear ownership boundaries, and measurable reliability improvements."
+  },
+  "job_description": {
+    "company": "LatticeWorks",
+    "industry": "Software",
+    "company_size": "201-500",
+    "position": "Backend Software Engineer",
+    "location": "Remote, US",
+    "description": "Design and maintain reliable backend APIs, optimize database interactions, and collaborate with product teams to deliver customer-facing functionality at scale.",
+    "requirements": {
+      "required_skills": [
+        "Python",
+        "SQL",
+        "API Development"
+      ],
+      "preferred_skills": [
+        "Docker",
+        "AWS",
+        "Kubernetes"
+      ],
+      "experience_level": "mid_level",
+      "education_requirements": "Bachelor's degree in Computer Science or related field",
+      "years_experience": 4
+    },
+    "metadata": {
+      "trace_id": "job-ctrl-clean-good-fit",
+      "generated_at": "2026-03-01T00:00:00Z",
+      "is_niche_role": false,
+      "used_fallback": false
+    }
+  },
+  "fit_level": "good",
+  "trace_id": "ctrl-clean-good-fit",
+  "analysis_date": "2026-03-01T00:00:00Z"
+}

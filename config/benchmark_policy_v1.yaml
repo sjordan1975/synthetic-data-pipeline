@@ -1,0 +1,140 @@
+policy_id: benchmark_policy_v1
+created_by: student
+created_at_utc: "2026-02-27T00:00:00Z"
+description: >
+  Reference-standard policy for creating a trusted, versioned benchmark from
+  synthetic resume-job pairs. Candidate data is generated first, then adjudicated.
+
+label_taxonomy:
+  fit_levels:
+    - excellent
+    - good
+    - partial
+    - poor
+    - complete_mismatch
+
+normalization:
+  skills:
+    lowercase: true
+    strip_common_suffixes: ["developer", "engineer", ".js"]
+    strip_version_numbers: true
+    deduplicate: true
+
+metrics:
+  skills_overlap:
+    method: jaccard
+    formula: "|resume_skills ∩ required_skills| / |resume_skills ∪ required_skills|"
+
+  experience_mismatch:
+    rule: "flag if resume_years < 0.5 * required_years"
+
+  seniority_mismatch:
+    mapping:
+      entry_level: 0
+      mid_level: 1
+      senior: 2
+    rule: "flag if abs(resume_level - job_level) > 1"
+
+  missing_core_skills:
+    core_skill_count: 3
+    rule: "flag if any top-N required skills are missing"
+
+  hallucination_heuristics:
+    expert_skill_max_for_entry_level: 10
+    total_skill_max_for_entry_level: 20
+    suspicious_phrases:
+      - "expert in all"
+      - "certified in everything"
+
+  awkward_language_heuristics:
+    buzzword_threshold: 5
+    repeated_token_window: 10
+    repeated_token_count: 3
+
+fit_band_policy:
+  excellent:
+    min_overlap: 0.80
+    max_overlap: 1.00
+    must_have_all_core_skills: true
+  good:
+    min_overlap: 0.60
+    max_overlap: 0.79
+  partial:
+    min_overlap: 0.40
+    max_overlap: 0.59
+  poor:
+    min_overlap: 0.20
+    max_overlap: 0.39
+  complete_mismatch:
+    min_overlap: 0.00
+    max_overlap: 0.19
+
+reference_standard_build:
+  target_final_pairs: 250
+  generate_candidate_multiplier: 3.0
+  # 250 final -> 750 candidate pairs before filtering/adjudication
+
+  required_distribution:
+    min_jobs: 50
+    resumes_per_job_min: 5
+    fit_levels_balanced: true
+
+  split_strategy:
+    calibration: 0.60
+    validation: 0.20
+    holdout: 0.20
+    split_key: "job_id"
+    stratify_by:
+      - industry
+      - seniority_level
+      - fit_level
+
+  holdout_independence:
+    require_distinct_prompt_templates: true
+    require_distinct_random_seed: true
+    prefer_distinct_model_or_model_version: true
+
+adjudication:
+  auto_accept:
+    # candidate becomes benchmark-ready without human review if all pass
+    require_schema_valid: true
+    require_rule_metrics_computed: true
+    require_fit_label_matches_fit_band: true
+    disallow_hallucination_flag_for_excellent: true
+
+  human_review_triggers:
+    overlap_margin_from_boundary_max: 0.03
+    rule_conflicts_present: true
+    low_confidence_or_ambiguous_language: true
+    random_audit_rate: 0.10
+
+  adjudication_output_fields:
+    - trace_id
+    - generated_fit_label
+    - computed_fit_label
+    - adjudicated_fit_label
+    - adjudicator_type
+    - reason_codes
+    - notes
+    - policy_id
+    - timestamp_utc
+
+freeze_criteria:
+  min_inter_annotator_agreement: 0.80
+  max_unresolved_disagreements: 0
+  max_missing_adjudication_fields: 0
+  require_versioned_artifacts: true
+
+artifacts:
+  benchmark_policy_file: "config/benchmark_policy_v1.yaml"
+  candidate_pairs_file: "data/candidates/pairs_raw_v1.jsonl"
+  adjudication_log_file: "outputs/adjudication/adjudication_log_v1.jsonl"
+  calibration_set_file: "data/benchmark/calibration_v1.jsonl"
+  validation_set_file: "data/benchmark/validation_v1.jsonl"
+  holdout_set_file: "data/benchmark/holdout_v1.jsonl"
+  gold_master_file: "data/benchmark/gold_master_v1.jsonl"
+
+change_control:
+  policy_changes_require_new_version: true
+  benchmark_rebuild_required_on_policy_change: true
+  compare_against_previous_version: true
